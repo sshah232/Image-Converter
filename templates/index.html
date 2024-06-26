@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter</title>
+    <title>Image Converter(Video and Documents coming soon!)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
             max-width: 600px;
-            margin: 0 auto;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
@@ -31,22 +35,29 @@
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
+            color: #555555;
         }
         .form-group input[type="file"] {
             border: 1px solid #cccccc;
-            padding: 8px;
+            padding: 10px;
             width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            font-size: 14px;
         }
         .form-group select {
             border: 1px solid #cccccc;
-            padding: 8px;
+            padding: 10px;
             width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            font-size: 14px;
         }
         .form-group button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -54,31 +65,73 @@
             margin-top: 10px;
             cursor: pointer;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
         .form-group button:hover {
             background-color: #45a049;
         }
     </style>
+    <script>
+        function filterOutputFormats() {
+            var fileInput = document.getElementById('file');
+            var outputFormatSelect = document.getElementById('output_format');
+            var imageFormats = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'tif'];
+            var videoFormats = ['mp4', 'avi', 'mov', 'mkv'];
+            var docFormats = ['pdf', 'docx'];
+
+            var selectedFile = fileInput.files[0];
+            if (selectedFile) {
+                var fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+
+                if (imageFormats.includes(fileExtension)) {
+                    outputFormatSelect.innerHTML = '';
+                    imageFormats.forEach(function(format) {
+                        var option = document.createElement('option');
+                        option.value = format;
+                        option.textContent = format.toUpperCase();
+                        outputFormatSelect.appendChild(option);
+                    });
+                } else if (videoFormats.includes(fileExtension)) {
+                    outputFormatSelect.innerHTML = '';
+                    videoFormats.forEach(function(format) {
+                        var option = document.createElement('option');
+                        option.value = format;
+                        option.textContent = format.toUpperCase();
+                        outputFormatSelect.appendChild(option);
+                    });
+                } else if (docFormats.includes(fileExtension)) {
+                    outputFormatSelect.innerHTML = '';
+                    docFormats.forEach(function(format) {
+                        var option = document.createElement('option');
+                        option.value = format;
+                        option.textContent = format.toUpperCase();
+                        outputFormatSelect.appendChild(option);
+                    });
+                } else {
+                    outputFormatSelect.innerHTML = '';
+                }
+            } else {
+                outputFormatSelect.innerHTML = '';
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Image Converter</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
+        <h1>Image Converter (Video and Documents coming soon!)</h1>
+        <form action="/convert" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="file">Select an image file to upload:</label>
-                <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, .tif" required>
+                <label for="file">Select a file to upload:</label>
+                <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.tif,.mp4,.avi,.mov,.mkv,.pdf,.docx" onchange="filterOutputFormats()" required>
             </div>
             <div class="form-group">
                 <label for="output_format">Select output format:</label>
                 <select id="output_format" name="output_format" required>
-                    <option value="jpg">JPEG</option>
-                    <option value="png">PNG</option>
-                    <option value="gif">GIF</option>
-                    <option value="bmp">BMP</option>
-                    <option value="tiff">TIFF</option>
+                    <!-- Options will be dynamically populated based on the selected file -->
                 </select>
             </div>
             <div class="form-group">
+                <input type="hidden" name="filename" id="filename" value="">
                 <button type="submit">Upload and Convert</button>
             </div>
         </form>
