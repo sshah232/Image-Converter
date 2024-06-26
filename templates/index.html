@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="file"] {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            width: 100%;
+        }
+        .form-group select {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            width: 100%;
+        }
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Converter</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Select an image file to upload:</label>
+                <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, .tif" required>
+            </div>
+            <div class="form-group">
+                <label for="output_format">Select output format:</label>
+                <select id="output_format" name="output_format" required>
+                    <option value="jpg">JPEG</option>
+                    <option value="png">PNG</option>
+                    <option value="gif">GIF</option>
+                    <option value="bmp">BMP</option>
+                    <option value="tiff">TIFF</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Upload and Convert</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
